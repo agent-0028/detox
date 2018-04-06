@@ -4,7 +4,7 @@ const program = require('commander');
 
 program
   .arguments('<process>')
-  .command('test', 'Initiating your test suite')
+  .command('test', 'Running your test suite')
   .command('build', `[convenience method] Run the command defined in 'configuration.build'`)
   .command('run-server', 'Starts a standalone detox server')
   .command('init', 'Create initial e2e tests folder')

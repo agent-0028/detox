@@ -11,6 +11,7 @@ const DetoxServer = require('detox-server');
 const URL = require('url').URL;
 const _ = require('lodash');
 const ArtifactsPathsProvider = require('./artifacts/ArtifactsPathsProvider');
+const Registrar = require('./plugins/Registrar'):
 
 log.level = argparse.getArgValue('loglevel') || 'info';
 log.addLevel('wss', 999, {fg: 'blue', bg: 'black'}, 'wss');
@@ -38,6 +39,17 @@ class Detox {
         log.warn(ex);
       }
     }
+
+    this._testContextProviders = new Registrar('Test context providers');
+    this._pluginsRegistrar = new Registrar('Plugins');
+  }
+
+  _registerTestContextProvider(name, createTestContextProvider) {
+    this._testContextProviders.register(name, createTestContextProvider);
+  }
+
+  _registerBehaviorPlugin(name, createBehaviorPlugin) {
+    this._behaviorPlugins.register(name, createBehaviorPlugin);
   }
 
   async init(userParams) {
